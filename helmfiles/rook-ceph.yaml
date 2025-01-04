@@ -1,0 +1,117 @@
+repositories:
+- name: rook-release
+  url: https://charts.rook.io/release
+
+releases:
+- name: rook-ceph
+  namespace: rook-ceph
+  chart: rook-release/rook-ceph
+  # version: v1.14.6
+  version: v1.16.1
+  values:
+  - csi:
+      # # -- Enable Ceph CSI RBD driver
+      # enableRbdDriver: false
+      # # -- Enable Ceph CSI CephFS driver
+      # enableCephfsDriver: false
+      # # -- Disable the CSI driver.
+      # disableCsiDriv "false"
+      csiRBDProvisionerResource: |
+        - name : csi-provisioner
+          resource:
+            requests:
+              memory: 10Mi
+              cpu: 10m
+        - name : csi-resizer
+          resource:
+            requests:
+              memory: 10Mi
+              cpu: 10m
+        - name : csi-attacher
+          resource:
+            requests:
+              memory: 10Mi
+              cpu: 10m
+        - name : csi-snapshotter
+          resource:
+            requests:
+              memory: 10Mi
+              cpu: 10m
+        - name : csi-rbdplugin
+          resource:
+            requests:
+              memory: 10Mi
+              cpu: 10m
+        - name : csi-omap-generator
+          resource:
+            requests:
+              memory: 10Mi
+              cpu: 10m
+        - name : liveness-prometheus
+          resource:
+            requests:
+              memory: 10Mi
+              cpu: 10m
+      csiRBDPluginResource: |
+        - name : driver-registrar
+          resource:
+            requests:
+              memory: 10Mi
+              cpu: 10m
+        - name : csi-rbdplugin
+          resource:
+            requests:
+              memory: 10Mi
+              cpu: 10m
+        - name : liveness-prometheus
+          resource:
+            requests:
+              memory: 10Mi
+              cpu: 10m
+      csiCephFSProvisionerResource: |
+        - name : csi-provisioner
+          resource:
+            requests:
+              memory: 10Mi
+              cpu: 10m
+        - name : csi-resizer
+          resource:
+            requests:
+              memory: 10Mi
+              cpu: 10m
+        - name : csi-attacher
+          resource:
+            requests:
+              memory: 10Mi
+              cpu: 10m
+        - name : csi-snapshotter
+          resource:
+            requests:
+              memory: 10Mi
+              cpu: 10m
+        - name : csi-cephfsplugin
+          resource:
+            requests:
+              memory: 10Mi
+              cpu: 10m
+        - name : liveness-prometheus
+          resource:
+            requests:
+              memory: 10Mi
+              cpu: 10m
+      csiCephFSPluginResource: |
+        - name : driver-registrar
+          resource:
+            requests:
+              memory: 10Mi
+              cpu: 10m
+        - name : csi-cephfsplugin
+          resource:
+            requests:
+              memory: 10Mi
+              cpu: 10m
+        - name : liveness-prometheus
+          resource:
+            requests:
+              memory: 10Mi
+              cpu: 10m
